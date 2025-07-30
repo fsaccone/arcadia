@@ -1,0 +1,33 @@
+Arcadia
+=======
+
+Arcadia is a lightweight operating system based on the philosophies of free
+software and UNIX. It emphasizes simplicity and extensibility over unnecessary
+complexity and lack of understanding of one's system.
+
+This repository is a package repository for the Prometheus package manager.
+
+Bootstrap requirements
+----------------------
+
+- GCC
+- GNU Binutils
+- Gzip or Pigz
+- POSIX sh
+- Prometheus
+- UNIX tools
+
+Structure
+---------
+
+Packages prefixed with nochroot- should not be installed to the target machine
+as they are part of the cross-toolchain and are built to be run from the build
+machine: they are solely used to bootstrap the OS.
+
+Usage
+-----
+
+The ARCH environment variable specifies the architecture of the target
+machine. If it is not set, it defaults to the architecture of the build
+machine. The triplet of the built system will ultimately be
+"$ARCH-arcadia-linux-musl".
