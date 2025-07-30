@@ -1,0 +1,15 @@
+#!/bin/sh -eu
+
+gz=$(command -v pigz || command -v gzip)
+
+$gz -cd mpfr.tar.gz | tar -x
+cd mpfr*/
+
+./configure --disable-shared \
+            --enable-static \
+            --enable-thread-safe \
+            --prefix=$PREFIX \
+            --with-gmp-include=$PREFIX/include \
+            --with-gmp-lib=$PREFIX/lib
+make
+make install
