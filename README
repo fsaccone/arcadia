@@ -10,9 +10,8 @@ This repository is a package repository for the Prometheus package manager.
 Bootstrap requirements
 ----------------------
 
-- GCC
-- GNU Binutils
 - Gzip or Pigz
+- Native C toolchain
 - POSIX sh
 - Prometheus
 - UNIX tools
