@@ -1,0 +1,16 @@
+#!/bin/sh -eu
+
+gz=$(command -v pigz || command -v gzip)
+
+$gz -cd mpc.tar.gz | tar -x
+cd mpc*/
+
+./configure --disable-shared \
+            --enable-static \
+            --prefix=$PREFIX \
+            --with-gmp-include=$PREFIX/include \
+            --with-gmp-lib=$PREFIX/lib \
+            --with-mpfr-include=$PREFIX/include \
+            --with-mpfr-lib=$PREFIX/lib
+make
+make install
