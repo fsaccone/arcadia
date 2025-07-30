@@ -1,0 +1,11 @@
+#!/bin/sh -eu
+
+gz=$(command -v pigz || command -v gzip)
+
+$gz -cd bison.tar.gz  | tar -x
+cd bison*/
+
+./configure --disable-nls \
+            --prefix=$PREFIX
+make
+make install
