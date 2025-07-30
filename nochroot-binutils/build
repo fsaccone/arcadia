@@ -1,0 +1,41 @@
+#!/bin/sh -eu
+
+gz=$(command -v pigz || command -v gzip)
+
+$gz -cd binutils.tar.gz | tar -x
+cd binutils*/
+
+mkdir build
+cd build
+
+ARCH=${ARCH:-$(uname -m)}
+
+../configure --disable-gold \
+             --disable-gprof \
+             --disable-gprofng \
+             --disable-host-shared \
+             --disable-libctf \
+             --disable-multilib \
+             --disable-nls \
+             --disable-plugins \
+             --disable-rpath \
+             --disable-shared \
+             --disable-werror \
+             --enable-default-hash-style=gnu \
+             --enable-deterministic-archives \
+             --enable-new-dtags \
+             --enable-ld=default \
+             --enable-lto \
+             --enable-static \
+             --prefix=$PREFIX \
+             --target=$ARCH-arcadia-linux-musl \
+             --without-msgpack \
+             --with-sysroot \
+             --with-pic
+make
+make install
+
+cd $PREFIX/bin
+for b in $ARCH-arcadia-linux-musl-*; do
+	mv $b ${b#$ARCH-arcadia-linux-musl-}
+done
