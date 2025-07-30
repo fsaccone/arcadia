@@ -1,0 +1,11 @@
+#!/bin/sh -eu
+
+gz=$(command -v pigz || command -v gzip)
+
+$gz -cd m4.tar.gz  | tar -x
+cd m4*/
+
+./configure --disable-nls \
+            --prefix=$PREFIX
+make
+make install
