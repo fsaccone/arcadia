@@ -1,0 +1,10 @@
+#!/bin/sh -eu
+
+gz=$(command -v pigz || command -v gzip)
+
+$gz -cd patch.tar.gz  | tar -x
+cd patch*/
+
+./configure --prefix=$PREFIX
+make
+make install
