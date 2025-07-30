@@ -1,0 +1,15 @@
+#!/bin/sh -eu
+
+gz=$(command -v pigz || command -v gzip)
+
+$gz -cd gmp.tar.gz  | tar -x
+cd gmp*/
+
+./configure --disable-shared \
+            --enable-cxx \
+            --enable-fat \
+            --enable-static \
+            --prefix=$PREFIX \
+            --with-pic
+make
+make install
