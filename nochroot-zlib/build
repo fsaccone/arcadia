@@ -1,0 +1,11 @@
+#!/bin/sh
+
+gz=$(command -v pigz || commang -v gzip)
+
+$gz -cd zlib.tar.gz | tar -x
+cd zlib*/
+
+./configure --prefix=$PREFIX \
+            --static
+make
+make install
