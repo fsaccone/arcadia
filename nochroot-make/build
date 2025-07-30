@@ -1,0 +1,14 @@
+#!/bin/sh -eu
+
+gz=$(command -v pigz || command -v gzip)
+
+$gz -cd make.tar.gz | tar -x
+cd make*/
+
+chmod 0700 configure build.sh
+
+./configure --disable-dependency-tracking \
+            --disable-nls \
+            --prefix=$PREFIX
+./build.sh
+./make install
