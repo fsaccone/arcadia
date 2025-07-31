@@ -1,0 +1,11 @@
+/bin/cpp
+/bin/g++
+/bin/gcc
+/bin/gcc-ar
+/bin/gcc-nm
+/bin/gcc-ranlib
+/bin/gcov
+/bin/gcov-dump
+/bin/gcov-tool
+/bin/lto-dump
+/lib/gcc

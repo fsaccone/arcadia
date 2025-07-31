@@ -1,0 +1,28 @@
+From 17329a1fb333303dfbbfcd26f5bbd3b683503bc6 Mon Sep 17 00:00:00 2001
+From: Francesco Saccone <francesco@francescosaccone.com>
+Date: Thu, 31 Jul 2025 16:43:21 +0200
+Subject: [PATCH] gcc: use posix tar
+
+---
+ gcc/Makefile.in | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/gcc/Makefile.in b/gcc/Makefile.in
+index 8a5fb3fd9..fb4de3837 100644
+--- a/gcc/Makefile.in
++++ b/gcc/Makefile.in
+@@ -3910,9 +3910,9 @@ install-headers-tar: stmp-int-hdrs install-include-dir
+ # found in CDPATH, corrupting the output.  We could just redirect the
+ # output of `cd', but some shells lose on redirection within `()'s
+ 	(cd `${PWD_COMMAND}`/include ; \
+-	 tar -cf - .; exit 0) | (cd $(DESTDIR)$(libsubdir)/include; tar xpf - )
++	 tar -cf - .; exit 0) | (cd $(DESTDIR)$(libsubdir)/include; tar -xf - )
+ 	(cd `${PWD_COMMAND}`/include-fixed ; \
+-	 tar -cf - .; exit 0) | (cd $(DESTDIR)$(libsubdir)/include-fixed; tar xpf - )
++	 tar -cf - .; exit 0) | (cd $(DESTDIR)$(libsubdir)/include-fixed; tar -xf - )
+ # /bin/sh on some systems returns the status of the first tar,
+ # and that can lose with GNU tar which always writes a full block.
+ # So use `exit 0' to ignore its exit status.
+-- 
+2.49.0
+

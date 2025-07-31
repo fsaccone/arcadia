@@ -1,0 +1,33 @@
+#!/bin/sh -eu
+
+gz=$(command -v pigz | command -v gzip)
+
+$gz -cd gcc.tar.gz  | tar -x
+cd gcc*/
+
+for p in ../*.patch; do
+	patch -p1 < $p
+done
+
+mkdir build
+cd build
+
+ARCH=${ARCH:-$(uname -m)}
+
+AR_FOR_TARGET=$PREFIX/bin/ar \
+AS_FOR_TARGET=$PREFIX/bin/as \
+LD_FOR_TARGET=$PREFIX/bin/ld \
+NM_FOR_TARGET=$PREFIX/bin/nm \
+OBJCOPY_FOR_TARGET=$PREFIX/bin/objcopy \
+OBJDUMP_FOR_TARGET=$PREFIX/bin/objdump \
+RANLIB_FOR_TARGET=$PREFIX/bin/ranlib \
+READELF_FOR_TARGET=$PREFIX/bin/readelf \
+STRIP_FOR_TARGET=$PREFIX/bin/strip \
+../configure $(ARCH=$ARCH PREFIX=$PREFIX ../../flags.sh)
+make all-gcc
+make install-gcc
+
+cd $PREFIX/bin
+for f in $ARCH-arcadia-linux-musl-*; do
+	mv $f ${f#$ARCH-arcadia-linux-musl-}
+done
