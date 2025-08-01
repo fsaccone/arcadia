@@ -1,0 +1,20 @@
+#!/bin/sh -eu
+
+gz=$(command -v pigz | command -v gzip)
+
+$gz -cd musl.tar.gz  | tar -x
+cd musl*/
+
+ARCH=${ARCH:-$(uname -m)}
+
+AR=$PREFIX/bin/ar \
+CC=$PREFIX/bin/gcc \
+RANLIB=$PREFIX/bin/ranlib \
+./configure --build \
+            --disable-shared \
+            --disable-wrapper \
+            --enable-static \
+            --host=$ARCH-arcadia-linux-musl \
+            --prefix=$PREFIX
+make CROSS_COMPILE=""
+make install
