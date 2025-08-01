@@ -11,9 +11,9 @@ Bootstrap requirements
 ----------------------
 
 - Gzip or Pigz
-- Native C toolchain
 - POSIX sh
 - Prometheus
+- Static native C toolchain
 - UNIX tools
 
 Structure
