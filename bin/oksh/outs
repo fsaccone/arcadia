@@ -1,0 +1,6 @@
+#no-chroot
+
+/bin/oksh
+/bin/sh
+/share/man/man1/oksh.1
+/share/man/man1/sh.1

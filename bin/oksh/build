@@ -1,0 +1,19 @@
+#!/bin/sh -eu
+
+gz=$(command -v pigz || command -v gzip)
+
+$gz -cd oksh.tar.gz | tar -x
+cd oksh*/
+
+ARCH=${ARCH:-$(uname -m)}
+
+./configure --cc=${CC:-$ARCH-linux-musl-cc} \
+            --enable-curses \
+            --enable-sh \
+            --enable-static \
+            --prefix=$PREFIX
+make
+make install
+
+cd $PREFIX/bin
+ln -sf oksh sh
