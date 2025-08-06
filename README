@@ -1,0 +1,42 @@
+Arcadia
+=======
+
+Lightweight Linux distribution based on minimalism.
+
+Requirements
+------------
+
+- C toolchain targeting $ARCH-linux-musl with static libc
+- Gzip or Pigz
+- POSIX sh
+- Prometheus
+- UNIX tools
+
+Bootstrappable requirements
+---------------------------
+
+Some extra dependencies are needed to build packages, but they can easily be
+installed to the build machine using prometheus:
+
+	# prometheus -is . tmp/*
+
+Or you may want to install them to something like /usr/local instead:
+
+	# prometheus -is . -p /usr/local tmp/*
+
+Installation
+------------
+
+The ARCH environment variable specifies the architecture of the target. If it
+is not set, it defaults to the architecture of the build machine.
+
+	# export ARCH=target-arch
+
+If needed, it is possible to specify all the common variables of the cross
+toolchain, such as CC, AR, etc.
+
+	# export CC=cross-cc
+
+It is assumed that the root and EFI partitions of the new system are mounted to
+/mnt and /mnt/boot respectively and that the current directory is this
+repository.
