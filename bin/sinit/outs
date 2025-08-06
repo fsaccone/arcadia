@@ -1,0 +1,6 @@
+#no-chroot
+
+/bin/init
+/bin/sinit
+/share/man/man8/init.8
+/share/man/man8/sinit.8

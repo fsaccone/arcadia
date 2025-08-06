@@ -1,0 +1,17 @@
+#!/bin/sh -eu
+
+gz=$(command -v pigz || command -v gzip)
+
+$gz -cd sinit.tar.gz | tar -x
+cd sinit*/
+
+ARCH=${ARCH:-$(uname -m)}
+
+make CC=${CC:-$ARCH-linux-musl-cc}
+make PREFIX=$PREFIX install
+
+cd $PREFIX/bin
+ln -s sinit init
+
+cd $PREFIX/share/man/man8
+ln -s sinit.8 init.8
