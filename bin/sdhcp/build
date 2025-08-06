@@ -1,0 +1,13 @@
+#!/bin/sh -eu
+
+gz=$(command -v pigz || command -v gzip)
+
+$gz -cd sdhcp.tar.gz | tar -x
+cd sdhcp*/
+
+ARCH=${ARCH:-$(uname -m)}
+
+make CC=${CC:-$ARCH-linux-musl-cc}
+make PREFIX=$PREFIX install
+
+mv $PREFIX/{sbin,bin}
