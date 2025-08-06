@@ -1,0 +1,4 @@
+#no-chroot
+
+/bin/patch
+/share/man/man1/patch.1
