@@ -16,13 +16,11 @@ Bootstrappable requirements
 ---------------------------
 
 Some extra dependencies are needed to build packages, but they can easily be
-installed to the build machine using prometheus:
+retrieved with Prometheus by installing them to a temporary directory and
+updating the PATH
 
-	# prometheus -is . tmp/*
-
-Or you may want to install them to something like /usr/local instead:
-
-	# prometheus -is . -p /usr/local tmp/*
+	# prometheus -is . -p tmpdir tmp/*
+	# export PATH="tmpdir:$PATH"
 
 Installation
 ------------
