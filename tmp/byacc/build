@@ -1,0 +1,12 @@
+#!/bin/sh -eu
+
+gz=$(command -v pigz || command -v gzip)
+
+$gz -cd byacc.tar.gz | tar -x
+cd byacc*/
+
+ARCH=${ARCH:-$(uname -m)}
+
+./configure --prefix=$PREFIX
+make
+make install
