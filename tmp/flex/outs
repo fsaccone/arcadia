@@ -1,0 +1,6 @@
+#no-chroot
+
+/bin/flex
+/bin/lex
+/share/man/man1/flex.1
+/share/man/man1/lex.1
