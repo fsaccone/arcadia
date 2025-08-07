@@ -1,0 +1,18 @@
+#!/bin/sh -eu
+
+gz=$(command -v pigz || command -v gzip)
+
+$gz -cd bzip2.tar.gz | tar -x
+cd bzip2*/
+
+make
+make PREFIX=$PREFIX install
+
+mkdir -p $PREFIX/share/man/man1
+mv $PREFIX/man/man1/*.1 $PREFIX/share/man/man1
+
+cd $PREFIX/bin
+ln -sf bzdiff bzcmp
+ln -sf bzgrep bzegrep
+ln -sf bzgrep bzfgrep
+ln -sf bzmore bzless
