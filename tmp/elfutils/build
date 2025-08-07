@@ -1,0 +1,36 @@
+#!/bin/sh -eu
+
+bzip2 -cd elfutils.tar.bz2 | tar -x
+cd elfutils*/
+
+for p in ../*.patch; do
+	patch -p1 < $p
+done
+
+CFLAGS=${CFLAGS:-}
+LDFLAGS=${LFLAGS:-}
+
+CFLAGS="$CFLAGS -I$PREFIX/include" \
+LDFLAGS="$LDFLAGS -L$PREFIX/lib" \
+./configure --disable-debuginfod \
+            --disable-nls \
+            --disable-rpath \
+            --disable-libdebuginfod \
+            --disable-symbol-versioning \
+            --prefix=$PREFIX \
+            ac_cv_c99=yes
+
+echo "" > libdwfl/argp-std.c
+echo "" > libdwfl/linux-kernel-modules.c
+printf '%s\n' "all:" "install:" > src/Makefile
+
+make
+make install
+
+cd $PREFIX/lib
+cp -Lf libasm.so _ && mv _ libasm.so
+cp -Lf libdw.so  _ && mv _ libdw.so
+cp -Lf libelf.so _ && mv _ libelf.so
+ln -sf libasm.so libasm.so.1
+ln -sf libdw.so  libdw.so.1
+ln -sf libelf.so libelf.so.1
