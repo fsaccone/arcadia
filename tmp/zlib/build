@@ -1,0 +1,17 @@
+#!/bin/sh -eu
+
+gz=$(command -v pigz || command -v gzip)
+
+$gz -cd zlib.tar.gz | tar -x
+cd zlib*/
+
+CFLAGS=${CFLAGS:-}
+
+CFLAGS="$CFLAGS -fPIC" \
+./configure --prefix=$PREFIX
+make
+make install
+
+cd $PREFIX/lib
+cp -Lf libz.so _ && mv _ libz.so
+ln -sf libz.so libz.so.1

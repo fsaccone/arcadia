@@ -1,0 +1,6 @@
+#no-chroot
+
+/include/zconf.h
+/include/zlib.h
+/lib/libz.so
+/lib/libz.so.1
