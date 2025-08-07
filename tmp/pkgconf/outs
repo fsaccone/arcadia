@@ -1,0 +1,8 @@
+#no-chroot
+
+/bin/bomtool
+/bin/pkgconf
+/bin/pkg-config
+/share/man/man1/bomtool.1
+/share/man/man1/pkgconf.1
+/share/man/man1/pkg-config.1

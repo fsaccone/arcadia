@@ -1,0 +1,18 @@
+#!/bin/sh -eu
+
+gz=$(command -v pigz || command -v gzip)
+
+$gz -cd pkgconf.tar.gz | tar -x
+cd pkgconf*/
+
+./configure --disable-shared \
+            --enable-static \
+            --prefix=$PREFIX
+make
+make install
+
+cd $PREFIX/bin
+ln -s pkgconf pkg-config
+
+cd $PREFIX/share/man/man1
+ln -s pkgconf.1 pkg-config.1
