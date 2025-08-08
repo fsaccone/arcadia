@@ -1,0 +1,11 @@
+#!/bin/sh -eu
+
+gz=$(command -v pigz || command -v gzip)
+
+$gz -cd perl.tar.gz | tar -x
+cd perl*/
+
+sh Configure -de \
+             -Dprefix=$PREFIX
+make
+make install
