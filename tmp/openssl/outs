@@ -1,0 +1,8 @@
+#no-chroot
+
+/bin/openssl
+
+/include/openssl
+
+/lib/libcrypto.a
+/lib/libssl.a
