@@ -1,0 +1,29 @@
+#!/bin/sh -eu
+
+gz=$(command -v pigz || command -v gzip)
+
+$gz -cd util-linux.tar.gz | tar -x
+cd util-linux*/
+
+ARCH=${ARCH:-$(uname -m)}
+
+./configure --disable-all-programs \
+            --disable-asciidoc \
+            --disable-nls \
+            --disable-podman \
+            --disable-shared \
+            --disable-usrdir-path \
+            --enable-blkid \
+            --enable-fsck \
+            --enable-fs-paths-default=/bin \
+            --enable-fsck \
+            --enable-libblkid \
+            --enable-libmount \
+            --enable-libuuid \
+            --enable-static \
+            --host=$ARCH-linux-musl \
+            --prefix=$PREFIX \
+            --sbindir=$PREFIX/bin \
+            --with-cryptsetup
+make
+make install
