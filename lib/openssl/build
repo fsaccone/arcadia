@@ -1,0 +1,25 @@
+#!/bin/sh -eu
+
+gz=$(command -v pigz || command -v gzip)
+
+$gz -cd openssl*.tar.gz | tar -mx
+cd openssl*/
+
+ARCH=${ARCH:-$(uname -m)}
+
+perl Configure linux-$ARCH \
+               --libdir=lib \
+               --openssldir=/etc/ssl \
+               --prefix=$PREFIX \
+               no-async \
+               no-comp \
+               no-ec2m \
+               no-idea \
+               no-mdc2 \
+               no-rc5 \
+               no-seed \
+               no-ssl3 \
+               no-weak-ssl-ciphers \
+               no-zlib
+make
+make install
