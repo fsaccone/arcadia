@@ -1,0 +1,11 @@
+#!/bin/sh -eu
+
+gz=$(command -v pigz || command -v gzip)
+
+$gz -cd libaio.tar.gz | tar -x
+cd libaio*/
+
+ARCH=${ARCH:-$(uname -m)}
+
+make CC=${CC:-$ARCH-linux-musl-cc}
+make prefix=$PREFIX install

@@ -1,0 +1,4 @@
+#no-chroot
+
+/include/libaio.h
+/lib/libaio.a
