@@ -1,0 +1,11 @@
+#!/bin/sh -eu
+
+args=""
+
+for a in $@; do
+	if ! [ "$a" = "-T" ]; then
+		args="$args $a"
+	fi
+done
+
+$CP $args

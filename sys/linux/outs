@@ -1,0 +1,17 @@
+#no-chroot
+
+/boot/vmlinux
+
+/include/asm
+/include/asm-generic
+/include/drm
+/include/linux
+/include/misc
+/include/mtd
+/include/rdma
+/include/scsi
+/include/sound
+/include/video
+/include/xen
+
+/lib/modules

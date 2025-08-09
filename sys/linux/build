@@ -1,0 +1,28 @@
+#!/bin/sh -eu
+
+export CP=$(command -v cp)
+export SED=$(command -v sed)
+export PATH="$PREFIX/src/bin:$PATH"
+
+gz=$(command -v pigz || command -v gzip)
+
+$gz -cd linux.tar.gz | tar -x
+cd linux*/
+
+vars="ARCH=${ARCH:-$(uname -m)} \
+      CC=${CC:-$ARCH-linux-musl-cc} \
+      YACC=yacc"
+
+make $vars defconfig
+
+make $vars headers
+find usr/include -type f ! -name "*.h" -exec rm -f {} +
+mkdir -p $PREFIX/include
+cp -r usr/include/* $PREFIX/include
+
+make $vars vmlinux
+mkdir -p $PREFIX/boot
+cp vmlinux $PREFIX/boot
+
+make $vars modules
+make INSTALL_MOD_PATH=$PREFIX modules_install
